@@ -1,30 +1,35 @@
 <template>
   <div class="counter">
-    <button @click="decrementA()">-</button>
-    {{ state.count }}
-    <button @click="incrementA()">+</button>
+    <button @click="decrement">-</button>
+    {{ count }}
+    <button @click="increment">+</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "@/store";
 
 export default defineComponent({
   setup() {
-    const state = reactive({
-      count: 0,
-    });
-    function incrementA() {
-      state.count++;
-    }
-    function decrementA() {
-      state.count--;
-    }
+    // const state = reactive({
+    //   count: 0,
+    // });
+
+    // function incrementA() {
+    //   state.count++;
+    // }
+    // function decrementA() {
+    //   state.count--;
+    // }
+
+    // Storeを取得する
+    const store = useStore();
 
     return {
-      state,
-      incrementA,
-      decrementA,
+      count: computed(() => store.state.count),
+      increment: () => store.dispatch("increment"),
+      decrement: () => store.dispatch("decrement"),
     };
   },
 });

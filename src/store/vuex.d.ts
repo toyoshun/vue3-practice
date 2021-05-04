@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ComponentCustomProperties } from "vue";
 import { Store } from "vuex";
 import { State } from "@/store";
