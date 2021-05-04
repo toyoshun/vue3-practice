@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
-import CountResetButton from "@/components/CountResetButton.vue";
+import CountResetButton from "@/components/Counter/CountResetButton.vue";
 
 export default defineComponent({
   components: {
