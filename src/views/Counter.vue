@@ -4,13 +4,21 @@
     {{ count }}
     <button @click="increment">+</button>
   </div>
+  <div>
+    <CountResetButton />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
+import CountResetButton from "@/components/CountResetButton.vue";
 
 export default defineComponent({
+  components: {
+    CountResetButton,
+  },
+
   setup() {
     // const state = reactive({
     //   count: 0,

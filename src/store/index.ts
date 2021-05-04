@@ -42,6 +42,9 @@ export const store = createStore<State>({
     decrement({ commit }) {
       commit("decrement");
     },
+    resetCount({ commit }) {
+      commit("resetCount");
+    },
   },
   mutations: {
     add(state, { book }) {
@@ -53,6 +56,9 @@ export const store = createStore<State>({
     },
     decrement(state) {
       state.count--;
+    },
+    resetCount(state) {
+      state.count = 0;
     },
   },
 });
