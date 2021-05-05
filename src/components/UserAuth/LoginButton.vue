@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="google-button" @click="signin()">
+  <button type="button" class="google-button" @click="signIn()">
     <span class="google-button__icon">
       <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -29,7 +29,8 @@
 
 <script lang='ts'>
 import { defineComponent } from "vue";
-import { useStore } from "@/store";
+import { useStore, User } from "@/store";
+import { auth, authObject } from "@/scripts/firebase";
 
 export default defineComponent({
   name: "LoginButton",
@@ -38,8 +39,31 @@ export default defineComponent({
     // Storeを取得する
     const store = useStore();
 
+    function signIn() {
+      // Google認証
+      const provider = new authObject.GoogleAuthProvider();
+
+      // 認証実施
+      auth
+        .signInWithPopup(provider)
+        .then((result) => {
+          // firebaseから取得した情報
+          const user = {
+            name: result.user?.displayName,
+            email: result.user?.email,
+          } as User
+
+          // ユーザー情報保持
+          store.dispatch("signin", user);
+        })
+        .catch((err) => {
+          console.error(err);
+          // エラー処理
+        });
+    }
+
     return {
-      signin: () => store.dispatch("signin"), // サインイン
+      signIn, // サインイン
     };
   },
 });

@@ -2,6 +2,7 @@
   <div>
     <LoginButton />
     <p>Hello! {{ displayName }}</p>
+    <p>e-Mail: {{ email }}</p>
     <LogoutButton />
   </div>
 </template>
@@ -27,6 +28,9 @@ export default defineComponent({
       displayName: computed(() =>
         store.state.user.name ? store.state.user.name : "Guest"
       ), // ログインユーザー名取得
+      email: computed(() =>
+        store.state.user.email ? store.state.user.email : ""
+      ), // メアド取得
     };
   },
 });

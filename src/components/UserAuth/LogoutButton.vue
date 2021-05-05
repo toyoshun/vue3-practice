@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="google-button" @click="signout()">
+  <button type="button" class="google-button" @click="signOut()">
     <span class="google-button__icon">
       <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -30,6 +30,7 @@
 <script lang='ts'>
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
+import { auth } from "@/scripts/firebase";
 
 export default defineComponent({
   name: "LogoutButton",
@@ -38,8 +39,14 @@ export default defineComponent({
     // Storeを取得する
     const store = useStore();
 
+    function signOut() {
+      auth.signOut().then(() => {
+        store.dispatch("signout"); // サインアウト
+      });
+    }
+
     return {
-      signout: () => store.dispatch("signout"), // サインアウト
+      signOut,
     };
   },
 });
