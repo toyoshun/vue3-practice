@@ -5,19 +5,19 @@
       <input v-model="book.author" />
       <button v-on:click="add">追加</button>
     </div>
-    <List />
+    <BookList />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
 import { useStore, Book } from "@/store";
-import List from "@/components/Books/BookList.vue";
+import BookList from "@/components/Books/BookList.vue";
 
 export default defineComponent({
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    List,
+    BookList,
   },
 
   setup() {

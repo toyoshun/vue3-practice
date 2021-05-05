@@ -1,3 +1,4 @@
+import firebase from "firebase";
 import { InjectionKey } from "vue";
 import { createStore, useStore as baseUseStore, Store } from "vuex";
 
@@ -6,10 +7,16 @@ export interface Book {
   author: string;
 }
 
+export interface User {
+  name?: string | null;
+  email?: string | null;
+}
+
 // ストアの型を定義する
 export interface State {
-  books: Book[],
+  books: Book[];
   count: number;
+  user: User;
 }
 
 // InjectionKeyを定義する
@@ -20,6 +27,7 @@ export const store = createStore<State>({
   state: {
     books: [],
     count: 0,
+    user: { name: "", email: "" },
   },
   getters: {
     getFirstBook: (state) => {
@@ -45,6 +53,13 @@ export const store = createStore<State>({
     resetCount({ commit }) {
       commit("resetCount");
     },
+    // 認証
+    signin({ commit }) {
+      commit("signin");
+    },
+    signout({ commit }) {
+      commit("signout");
+    },
   },
   mutations: {
     add(state, { book }) {
@@ -59,6 +74,35 @@ export const store = createStore<State>({
     },
     resetCount(state) {
       state.count = 0;
+    },
+    // 認証
+    async signin(state) {
+      // 認証先
+      const provider = new firebase.auth.GoogleAuthProvider();
+
+      // 認証実施
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          const user = result.user;
+          state.user = {
+            name: user?.displayName,
+            email: user?.email,
+          };
+        })
+        .catch((err) => {
+          console.error(err);
+          // エラー処理
+        });
+    },
+    signout(state) {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          state.user = { name: "", email: "" };
+        });
     },
   },
 });
