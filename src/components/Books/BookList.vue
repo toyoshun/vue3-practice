@@ -9,10 +9,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(book, index) in books" :key="index">
-          <td>{{ index }}</td>
-          <td>{{ book.name }}</td>
-          <td>{{ book.author }}</td>
+        <tr v-for="(doc, index) in bookList" :key="index">
+          <td>{{ doc.id }}</td>
+          <td>{{ doc.book.name }}</td>
+          <td>{{ doc.book.author }}</td>
         </tr>
       </tbody>
     </table>
@@ -34,20 +34,20 @@ export default defineComponent({
     // };
 
     // リアクティブにしないと初期表示されない
-    const books: Book[] = reactive([]);
+    const bookList = reactive([{id: "", book: {} as Book}]);
 
     // 全件取得
     db.collection("books")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log(doc.id);
-          books.push({name: doc.data().name, author: doc.data().author})
+          const book: Book = {name: doc.data().name, author: doc.data().author}
+          bookList.push({id: doc.id, book: book})
         });
       });
 
     return {
-      books
+      bookList
     };
   },
 });
