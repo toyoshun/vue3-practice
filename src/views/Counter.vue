@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
 import CountResetButton from "@/components/Counter/CountResetButton.vue";
 import { mapActions, mapGetters, mapState } from 'vuex'
@@ -25,8 +25,10 @@ export default defineComponent({
     // Storeを取得する
     const store = useStore();
 
+// computed(() => mapState('counter', ['counter']))
+
     return {
-      // count: computed(() => store.state.counter),
+      // count: () => mapState('counter', ['counter']),
       // increment: () => store.dispatch("increment"),
       // decrement: () => store.dispatch("decrement"),
     };

@@ -1,5 +1,5 @@
 import { Module, ActionTree, GetterTree, MutationTree } from "vuex";
-import { RootState } from "./module_interfaces";
+import { RootState } from "../module_interfaces";
 
 // ストアの型を定義する
 export type State = {

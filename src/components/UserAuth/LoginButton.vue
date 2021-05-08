@@ -31,15 +31,47 @@
 import { defineComponent } from "vue";
 import { useStore, User } from "@/store";
 import { auth, authObject } from "@/scripts/firebase";
+import { mapActions } from "vuex";
 
 export default defineComponent({
   name: "LoginButton",
 
   setup() {
-    // Storeを取得する
-    const store = useStore();
+    // // Storeを取得する
+    // const store = useStore();
+    // const authAction = {...mapActions("auth", ["signin"])};
 
-    function signIn() {
+    // const signIn = () => {
+    //   // Google認証
+    //   const provider = new authObject.GoogleAuthProvider();
+
+    //   // 認証実施
+    //   auth
+    //     .signInWithPopup(provider)
+    //     .then((result) => {
+    //       // firebaseから取得した情報
+    //       const user = {
+    //         name: result.user?.displayName,
+    //         email: result.user?.email,
+    //       } as User;
+
+    //       // ユーザー情報保持
+    //       // store.dispatch("signin", user);
+    //       authAction.signin(user);
+    //     })
+    //     .catch((err) => {
+    //       console.error(err);
+    //       // エラー処理
+    //     });
+    // };
+
+    // return {
+    //   signIn, // サインイン
+    // };
+  },
+  methods: {
+    ...mapActions('auth',['signin']),
+    signIn(){
       // Google認証
       const provider = new authObject.GoogleAuthProvider();
 
@@ -51,20 +83,17 @@ export default defineComponent({
           const user = {
             name: result.user?.displayName,
             email: result.user?.email,
-          } as User
+          } as User;
 
           // ユーザー情報保持
-          store.dispatch("signin", user);
+          // store.dispatch("signin", user);
+          this.signin(user);
         })
         .catch((err) => {
           console.error(err);
           // エラー処理
         });
-    }
-
-    return {
-      signIn, // サインイン
-    };
+    },
   },
 });
 </script>

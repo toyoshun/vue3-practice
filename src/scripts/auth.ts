@@ -1,5 +1,10 @@
 import { useStore, User } from "@/store";
 import { auth, authObject } from "@/scripts/firebase";
+import { mapActions } from "vuex";
+
+
+// const actions = {...mapActions("auth", ["signin"])}
+
 
 // Storeを取得する
 const store = useStore();
@@ -8,6 +13,9 @@ const store = useStore();
 export function signIn() {
   // Google認証
   const provider = new authObject.GoogleAuthProvider();
+
+  const authAction = {...mapActions("auth", ["signin"])};
+
 
   // 認証実施
   auth
@@ -20,7 +28,7 @@ export function signIn() {
       } as User;
 
       // ユーザー情報保持
-      store.dispatch("signin", user);
+      authAction.signin(user);
     })
     .catch((err) => {
       console.error(err);

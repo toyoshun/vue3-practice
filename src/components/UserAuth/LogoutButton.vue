@@ -28,26 +28,38 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { useStore } from "@/store";
 import { auth } from "@/scripts/firebase";
+import { mapActions } from "vuex";
 
 export default defineComponent({
   name: "LogoutButton",
 
   setup() {
-    // Storeを取得する
-    const store = useStore();
+    // // // Storeを取得する
+    // const store = useStore();
 
-    function signOut() {
+    // const authAction = { ...mapActions("auth", ["signout"]) };
+
+    // function signOut() {
+    //   auth.signOut().then(() => {
+    //     authAction.signout(); // サインアウト
+    //     // store.dispatch("signout"); // サインアウト
+    //   });
+    // }
+
+    // return {
+    //   signOut,
+    // };
+  },
+  methods: {
+    ...mapActions('auth',['signout']),
+    signOut() {
       auth.signOut().then(() => {
-        store.dispatch("signout"); // サインアウト
+        this.signout(); // サインアウト
       });
-    }
-
-    return {
-      signOut,
-    };
+    },
   },
 });
 </script>
