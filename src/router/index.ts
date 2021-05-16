@@ -25,6 +25,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true }
   },
   {
+    path: "/counter-props",
+    name: "CounterProps",
+    component: () => import("../views/CounterProps.vue"),
+    meta: { requiresAuth: false }
+  },
+  {
     path: "/user-auth",
     name: "UserAuth",
     component: () => import("../views/UserAuth.vue"),

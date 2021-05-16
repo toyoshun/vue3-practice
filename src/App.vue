@@ -4,6 +4,7 @@
     <router-link to="/about">About</router-link> |
     <router-link to="/user-auth">Auth</router-link> |
     <router-link to="/counter">Counter</router-link> |
+    <router-link to="/counter-props">CounterProps</router-link> |
     <router-link to="/books">BookList</router-link>
   </div>
   <router-view/>

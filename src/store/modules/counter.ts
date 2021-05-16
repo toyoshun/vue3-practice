@@ -4,7 +4,7 @@ import { RootState } from "../module_interfaces";
 // ストアの型を定義する
 export type State = {
   counter: number;
-}
+};
 
 const state: State = {
   counter: 0,
